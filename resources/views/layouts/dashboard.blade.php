@@ -116,13 +116,13 @@
             <!-- products -->
             <p class="mt-2 mb-1 text-secondary text-small">Todos</p>
             <li>
-              <a href="products/index.html" class="nav-link">
+              <a href="{{ route('todos.index') }}" class="nav-link">
                 <i class="bi bi-table me-2"></i>
                 Todos
               </a>
             </li>
             <li>
-              <a href="sales/index.html" class="nav-link">
+              <a href="{{ route('todos.create') }}" class="nav-link">
                 <i class="bi bi-bank me-2"></i>
                 Create Todo
               </a>
