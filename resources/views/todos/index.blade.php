@@ -32,7 +32,6 @@
                             <th>Completed</th>
                             <!-- <th>Date</th> -->
                             <th>Actions</th>
-                            <th>Modified date</th>
                           <th></th>
                         </tr>
                       </thead>
@@ -77,31 +76,41 @@
                             >
                               <i class="bi bi-pencil-square"></i>
                             </a>
-                            <a
-                              href="index.html#"
-                              class="amj-a me-2"
-                              data-bs-toggle="modal"
-                              data-bs-target="#modalDeleteConfirmation"
-                            >
-                              <i class="bi bi-trash"></i>
-                            </a>
-                            <form action="">
-                            <input type="hidden" name="todo_id" value="{{ $todo -> id }}" />
-                                            <input type="submit" class="badge badge-outline-warning" value="Delete" />
+                            
+                            <form method="post">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" name="todo_id" value="{{ $todo -> id }}" />
+                                <input type="submit" class="badge badge-outline-warning" value="Delete" />
+                                <a
+                                    href="index.html#"
+                                    class="amj-a me-2"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalDeleteConfirmation"
+                                    >
+                                    <i class="bi bi-trash"></i>
+                                </a>
                             </form>
                           </td>
                         </tr>
                         @endforeach
                       </tbody>
                     </table>
+                
+                    <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center my-3">
+                    {{ $todos->onEachSide(1)->links() }}
+                    </ul>
+                    </nav>
                     @else
                         <h4>No todos</h4>
                     @endif
+
                   </div>
 
                   <!-- pagination -->
                   <style></style>
-                  <nav aria-label="Page navigation">
+                  <!-- <nav aria-label="Page navigation">
                     <ul class="pagination justify-content-center my-3">
                       <li class="page-item disabled">
                         <a class="page-link">Previous</a>
@@ -119,7 +128,10 @@
                         <a class="page-link" href="index.html#">Next</a>
                       </li>
                     </ul>
-                  </nav>
+                  </nav> -->
+
+
+
                   <!-- pagination ends -->
                 </div>
               </div>

@@ -8,9 +8,10 @@
                 <div class="card-header">{{ __('Edit Todos Form') }}</div>
 
                 <div class="card-body">
-                    <form method="post" action="{{ route('todos.update') }}">
+                    <!-- <form method="post" action="{{ route('todos.update') }}"> -->
+                    <form method="post" action="{{ route('todos.update', ['todo' => $todo]) }}">
                         @csrf
-                        @method('PUT')
+                        @method('put')
                         <input type="hidden" name="todo_id" value="{{ $todo -> id}}" />
                         <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
@@ -27,7 +28,7 @@
                             <select name="is_completed" class="form-control">
                                 <option disabled selected> Select Option </option>
                                 <option value="1">Complete</option>
-                                <option value="1">In omplete</option>
+                                <option value="0">In complete</option>
                             </select>
                         </div>
 

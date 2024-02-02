@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
-@section('content')
+@section('dashcontent')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -74,11 +74,18 @@
                         if (data.status == 'success') {
                             // Redirect to another page
                             window.location.href = data.redirect_url;
-                            console.log(data.redirect_url)
+
+                            swal({  
+                                title: "Successful",  
+                                text: " Todo submitted successfully",  
+                                icon: "success",  
+                                button: "ok",  
+                            });
+                            // console.log(data.redirect_url)
                         };
 
-                        console.log(data)
-                        alert(data.res)
+                        // console.log(data)
+                        // alert(data.res)
                     },
                     error: function(e) {
                         console.log(e.responseText)

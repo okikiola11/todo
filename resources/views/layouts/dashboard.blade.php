@@ -108,7 +108,7 @@
             <!-- accounts -->
             <p class="mt-2 mb-1 text-secondary text-small">DASHBOARD</p>
             <li class="nav-item">
-              <a href="index.html" class="nav-link active" aria-current="page">
+              <a href="{{ route('todos.index') }}" class="nav-link active" aria-current="page">
                 <i class="bi bi-house-door-fill me-2"></i>
                 Home
               </a>

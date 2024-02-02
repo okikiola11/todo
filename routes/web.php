@@ -27,7 +27,7 @@ Route::get('/dash', [App\Http\Controllers\HomeController::class, 'dashboard'])->
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'todo.index'])->name('todos.index');
 
 Route::get('todos/index', [TodoController::class, 'index'])->name('todos.index');
 
@@ -41,4 +41,6 @@ Route::get('todos/show/{id}', [TodoController::class, 'show'])->name('todos.show
 
 Route::get('todos/{id}/edit', [TodoController::class, 'edit'])->name('todos.edit');
 
-Route::put('todos/update', [TodoController::class, 'update'])->name('todos.update');
+Route::put('todos/{todo}', [TodoController::class, 'update'])->name('todos.update');
+
+Route::delete('todos/destroy', [TodoController::class, 'delete'])->name('todos.delete');
