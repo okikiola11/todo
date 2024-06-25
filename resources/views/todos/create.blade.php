@@ -26,13 +26,17 @@
                         @csrf
                         <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
-                            <input 
+                            <input
                                 type="text" class="@error('title') is-invalid @enderror form-control" name="title" id="title" aria-describedby="title"
                             />
-                        
+
                             @error('title')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="deadline">Deadline</label>
+                            <input type="date" name="deadline" id="deadline" class="form-control" />
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
@@ -51,9 +55,11 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+
     <script>
         $(document).ready(function(){
             $("#submitForm").submit(function(event) {
@@ -61,6 +67,7 @@
 
                 var form = $("#submitForm")[0];
                 var data = new FormData(form);
+                // console.log(data);
 
                 $("#btnSubmit").prop("disabled", false);
 
@@ -72,17 +79,26 @@
                     contentType: false,
                     success: function(data) {
                         if (data.status == 'success') {
-                            // Redirect to another page
                             window.location.href = data.redirect_url;
 
-                            swal({  
-                                title: "Successful",  
-                                text: " Todo submitted successfully",  
-                                icon: "success",  
-                                button: "ok",  
+                            swal({
+                                title: "Successful",
+                                text: " Todo submitted successfully",
+                                icon: "success",
+                                button: "ok",
                             });
-                            // console.log(data.redirect_url)
-                        };
+                        } else {
+                            var values = '';
+                            $.each(data.errors, function(key, value){
+                                values += value+"\r";
+                            });
+                            swal({
+                                title: "Error",
+                                text: values,
+                                icon: "error",
+                                button: "ok",
+                            });
+                        }
 
                         // console.log(data)
                         // alert(data.res)
