@@ -27,7 +27,6 @@ class HomeController extends Controller
        return view('layouts/layout_2');
     }
 
-    public function dashboard() {
-        return view('layouts/dashboard');
-    }
+    
+
 }

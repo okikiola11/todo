@@ -32,13 +32,16 @@
       content="{{ asset('static/img/favicons/android-chrome-192x192.png') }}"
     />
     <meta name="msapplication-TileColor" content="#FFFFFF" />
-    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>Todo Template | Dashboard</title>
     <!-- <meta http-equiv="refresh" content="5"/> -->
 
     <!-- CSS -->
     <link href="{{ asset('static/css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('static/css/style.css') }}" rel="stylesheet" />
+    {{-- <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" /> --}}
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.css" /> --}}
 
     <!-- Favicons -->
     <link href="{{ asset('static/css/app.css') }}" rel="stylesheet">
@@ -74,13 +77,16 @@
       name="google-site-verification"
       content="QI5mxFBO2xqf2NLOetb1-a68pb2gXVZpWgBnWKIN8RQ"
     />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
+
   </head>
 
   <body>
     <div class="wrapper d-flex h-100">
       <!-- #mainSidebar -->
 
-      <nav id="mainSidebar" class="h-100">
+      <nav id="mainSidebar" class="h-100" style="font-size: 18px;">
         <div class="d-flex flex-column flex-shrink-0 p-3">
           <!-- first a -->
           <div
@@ -96,62 +102,69 @@
             <span class="fs-4 logo-sm only-d-sm">
               <img src="{{ asset('static/img/logo-40x25.png') }}" alt="" />
             </span>
-            
+
             <!-- for SM screen - close -->
             <span class="d-none" id="sidebarUntoggleBtn">
               <i class="bi bi-x-circle-fill"></i>
+
             </span>
           </div>
           <!-- first a ends -->
           <hr />
           <ul class="nav nav-pills flex-column mb-auto">
             <!-- accounts -->
-            <p class="mt-2 mb-1 text-secondary text-small">DASHBOARD</p>
-            <li class="nav-item">
-              <a href="index.html" class="nav-link active" aria-current="page">
+            {{-- <p class="mt-2 mb-1 text-secondary text-small">DASHBOARD</p> --}}
+            {{-- <li class="nav-item">
+              <a href="{{ route('todos.index') }}" class="nav-link active" aria-current="page">
                 <i class="bi bi-house-door-fill me-2"></i>
                 Home
               </a>
-            </li>
+            </li> --}}
             <!-- products -->
-            <p class="mt-2 mb-1 text-secondary text-small">Todos</p>
+            {{-- <p class="mt-2 mb-1 text-secondary text-small">Todos</p> --}}
             <li>
-              <a href="products/index.html" class="nav-link">
-                <i class="bi bi-table me-2"></i>
+              <a href="{{ route('todos.index') }}" class="nav-link">
+                <i class="bi bi-house-door-fill me-2"></i>
                 Todos
               </a>
             </li>
             <li>
-              <a href="sales/index.html" class="nav-link">
+              <a href="{{ route('todos.create') }}" class="nav-link">
                 <i class="bi bi-bank me-2"></i>
                 Create Todo
               </a>
             </li>
             <li>
+                <a href="{{ route('todos.completed') }}" class="nav-link">
+                  <i class="bi bi-receipt me-2"></i>
+                  Completed Todo
+                </a>
+            </li>
+            <!-- <li>
               <a href="expenses/index.html" class="nav-link">
                 <i class="bi bi-receipt me-2"></i>
                 View Todo
               </a>
-            </li>
+            </li> -->
 
             <!-- accounts -->
             <p class="mt-2 mb-1 text-secondary text-small">ACCOUNTS</p>
-            <li>
+            <!-- <li>
               <a href="accounts/login/index.html" class="nav-link">
                 <i class="bi bi-box-arrow-right me-2"></i>
                 Sign in
               </a>
-            </li>
-            <li>
+            </li> -->
+            <!-- <li>
               <a href="profile/index.html" class="nav-link">
                 <i class="bi bi-person-circle me-2"></i>
                 My Profile
               </a>
-            </li>
+            </li> -->
             <li>
-              <a href="accounts/registration/index.html" class="nav-link">
+              <a href="{{ route('logout') }}" class="nav-link">
                 <i class="bi bi-at me-2"></i>
-                Registration
+                Logout
               </a>
             </li>
           </ul>
@@ -176,21 +189,24 @@
 
               <div class="d-flex justify-content-end align-items-center">
                 <!-- search form -->
-                <form
+                {{-- <form
                   class="col-xl-4 col-md-auto col-lg-auto mb-0 me-xl-3"
                   role="search"
+                  method="post"
+                  action="/todos/search"
                 >
                   <div class="input-group">
                     <input
                       type="text"
                       class="form-control"
                       placeholder="search here"
+                      name="searchtext"
                     />
-                    <a class="btn" href="search-results/index.html">
-                      <i class="bi bi-search"></i>
-                    </a>
+                    @csrf
+                    <button type="submit"><i class="bi bi-search"></i></button>
+
                   </div>
-                </form>
+                </form> --}}
 
                 <!-- nav-right -->
                 <div class="nav-right col-md-auto col-lg-auto my-2">
@@ -240,7 +256,7 @@
                             >
                           </a>
                         </li>
-                        
+
                       </ul>
                     </li>
                     <!-- for profile page -->
@@ -288,12 +304,13 @@
           <!-- section searchForMobile -->
           <div class="row my-4 sm-my-3 sm-mt-0" id="searchForMobile">
             <div class="col">
-              <form>
+              <form type="GET" action="{{ url('todos.search') }}">
                 <div class="input-group">
                   <input
                     type="text"
                     class="form-control form-control-dark text-bg-dark text-white"
                     value="search here"
+                    name="query"
                   />
                   <a class="btn" href="search-results/index.html">
                     <i class="bi bi-search"></i>
@@ -305,10 +322,10 @@
           <!-- section searchForMobile ends -->
 
           <!-- main_content -->
-          <main class="container py-4">
-            @yield('dashcontent')
-        </main>
-          
+            <main class="container py-4">
+                @yield('dashcontent')
+            </main>
+
           <!-- main_content ends -->
         </div>
 
@@ -321,7 +338,7 @@
             <div class="col text-small">
               <span class="mb-3 mb-md-0">© 01-02 | 2024</span>
             </div>
-            
+
           </div>
         </footer>
         <!-- footer ends -->
@@ -364,7 +381,7 @@
           </div>
         </div>
       </div>
-      
+
     </div>
     <!-- modal for application ends -->
 
@@ -373,17 +390,17 @@
     <!-- bootstrap.bundle.min.js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- chartjs -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
     <!-- jvectormap -->
-    <script src="{{ asset('static/js/jquery-jvectormap-2.0.5.min.js') }}"></script>
-    <script src="{{ asset('static/js/jquery-jvectormap-world-mill-en.js') }}"></script>
+    {{-- <script src="{{ asset('static/js/jquery-jvectormap-2.0.5.min.js') }}"></script>
+    <script src="{{ asset('static/js/jquery-jvectormap-world-mill-en.js') }}"></script> --}}
     <!-- ploty -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <!-- script.js -->
     <script src="{{ asset('static/js/script.js') }}"></script>
 
     <script src="{{ asset('static/js/dashboard.js') }}"></script>
-    <script src="{{ asset('static/js/user-demographics.js') }}"></script>
+    {{-- <script src="{{ asset('static/js/user-demographics.js') }}"></script> --}}
+    @yield('js-script-section')
   </body>
 </html>
-

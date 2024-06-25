@@ -28,7 +28,7 @@
       content="{{ asset('static/img/favicons/android-chrome-192x192.png') }}"
     />
     <meta name="msapplication-TileColor" content="#FFFFFF" />
-    
+
     <title>Todo Template | Dashboard</title>
     <!-- <meta http-equiv="refresh" content="5"/> -->
 
@@ -92,7 +92,7 @@
             <span class="fs-4 logo-sm only-d-sm">
               <img src="{{ asset('static/img/logo-40x25.png') }}" alt="" />
             </span>
-            
+
             <!-- for SM screen - close -->
             <span class="d-none" id="sidebarUntoggleBtn">
               <i class="bi bi-x-circle-fill"></i>
@@ -103,53 +103,42 @@
           <ul class="nav nav-pills flex-column mb-auto">
             <!-- accounts -->
             <p class="mt-2 mb-1 text-secondary text-small">DASHBOARD</p>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
               <a href="index.html" class="nav-link active" aria-current="page">
                 <i class="bi bi-house-door-fill me-2"></i>
                 Home
               </a>
-            </li>
+            </li> --}}
             <!-- products -->
             <p class="mt-2 mb-1 text-secondary text-small">Todos</p>
             <li>
-              <a href="products/index.html" class="nav-link">
+              <a href="{{ route('todos.index' ) }}" class="nav-link">
                 <i class="bi bi-table me-2"></i>
                 Todos
               </a>
             </li>
             <li>
-              <a href="sales/index.html" class="nav-link">
-                <i class="bi bi-bank me-2"></i>
-                Create Todo
-              </a>
+                <a href="{{ route('todos.create') }}" class="nav-link">
+                    <i class="bi bi-bank me-2"></i>
+                    Create Todo
+                </a>
             </li>
-            <li>
-              <a href="expenses/index.html" class="nav-link">
+            {{-- <li>
+              <a href="" class="nav-link">
                 <i class="bi bi-receipt me-2"></i>
                 View Todo
               </a>
-            </li>
+            </li> --}}
 
             <!-- accounts -->
             <p class="mt-2 mb-1 text-secondary text-small">ACCOUNTS</p>
             <li>
-              <a href="accounts/login/index.html" class="nav-link">
-                <i class="bi bi-box-arrow-right me-2"></i>
-                Sign in
-              </a>
+                <a href="{{ route('logout') }}" class="nav-link">
+                    <i class="bi bi-at me-2"></i>
+                    Logout
+                </a>
             </li>
-            <li>
-              <a href="profile/index.html" class="nav-link">
-                <i class="bi bi-person-circle me-2"></i>
-                My Profile
-              </a>
-            </li>
-            <li>
-              <a href="accounts/registration/index.html" class="nav-link">
-                <i class="bi bi-at me-2"></i>
-                Registration
-              </a>
-            </li>
+
           </ul>
         </div>
       </nav>
@@ -236,7 +225,7 @@
                             >
                           </a>
                         </li>
-                        
+
                       </ul>
                     </li>
                     <!-- for profile page -->
@@ -303,13 +292,13 @@
           <!-- main_content -->
 
           <!-- page title -->
-         
+
           <main>
             @yield('layoutContent')
           </main>
           <!-- main_content ends -->
         </div>
-        
+
 
         <!-- footer -->
         <!-- divider for footer -->
@@ -320,7 +309,7 @@
             <div class="col text-small">
               <span class="mb-3 mb-md-0">© 01-02 | 2024</span>
             </div>
-            
+
           </div>
         </footer>
         <!-- footer ends -->
@@ -371,7 +360,7 @@
     <!-- bootstrap.bundle.min.js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- chartjs -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
     <!-- jvectormap -->
     <script src="{{ asset('static/js/jquery-jvectormap-2.0.5.min.js') }}"></script>
     <script src="{{ asset('static/js/jquery-jvectormap-world-mill-en.js') }}"></script>
@@ -385,4 +374,3 @@
   </body>
 </html>
 
-@endsection

@@ -26,7 +26,8 @@ class TodoRequest extends FormRequest
         return [
             // Input Validation
             'title' => 'required|string',
-            'description' => 'required|string|min:5|max:500'
+            'description' => 'required|string|min:5|max:500',
+            //'is_completed' => '',
         ];
     }
 }

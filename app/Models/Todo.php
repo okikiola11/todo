@@ -11,5 +11,5 @@ class Todo extends Model
 
     // This property makes the values in the db fillable
     // else you cannot post contents to them
-    protected $fillable = ['title', 'description', 'is_completed'];
+    protected $fillable = ['title', 'description', 'is_completed', 'deadline'];
 }
